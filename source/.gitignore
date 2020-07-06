@@ -1,0 +1,3 @@
+# Ignore all configuration files besides the example.
+*.ini
+!example_config.ini
