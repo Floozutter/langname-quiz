@@ -87,7 +87,7 @@ function endQuiz() {
 	const butty = document.querySelector("#butty");
 	butty.textContent = "Submit";
 	butty.addEventListener("click", _ => {
-		location.href = "submit.php";
+		location.href = "score.php";
 	});
 	butty.disabled = false;
 }
