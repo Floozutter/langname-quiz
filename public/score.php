@@ -9,6 +9,7 @@
 		$errmsg = 'Score already submitted!';
 	} else {
 		$err = false;
+		$errmsg = '';
 	}
 	
 	$name = (
@@ -52,6 +53,9 @@
 				Submit Your Score?
 			</div>
 			<div class="card-body lead">
+				<div id="error" class="mb-2 text-danger">
+					<?=$errmsg?>
+				</div>
 				<form action="score-submit.php" method="POST">
 					<input type="hidden" name="user_id" value="<?=$_SESSION['user-id']?>">
 					<input type="hidden" name="time" value="<?=$_SESSION['latest-time']?>">
@@ -67,23 +71,12 @@
 						<label for="text-id">Comment:</label>
 						<input type="text" id="text-id" class="form-control" name="comment" placeholder="very cool">
 					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary" <?php if($err){echo 'disabled';}?>>Submit</button>
 				</form>
 			</div>
 			<div class="card-footer text-muted">
 				uwu
 			</div>
 		</div>
-	</div>
-	<div>
-		<form action="score-submit.php" method="POST">
-
-		
-
-			
-
-			
-			
-		</form>
 	</div>
 </body>

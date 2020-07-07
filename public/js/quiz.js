@@ -60,6 +60,7 @@ function processAnswer(response) {
 	document.querySelectorAll(".choice").forEach(cDiv => {
 		const index = parseInt(cDiv.dataset.index, 10);
 		const correct = question.choices[index].correct;
+		cDiv.classList.add("dead");
 		cDiv.classList.add(
 			correct
 			? cDiv.classList.add("correct")

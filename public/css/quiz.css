@@ -6,3 +6,7 @@
 #quiz .choice {
 	font-size: 20px;
 }
+
+#quiz .choice:hover:not(.dead) {
+	background-color: LightCyan;
+}
