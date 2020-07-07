@@ -4,5 +4,5 @@
 #override .lead {
 	font-size: 20px;
 	font-weight: 400;
-	text-indent: 1em;
+	text-indent: 0;
 }

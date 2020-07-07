@@ -91,7 +91,7 @@ function processAnswer(response) {
 
 function updateSession() {
 	ajax(
-		`get-quiz.php?score=${SCORE}`,
+		`get-session.php?score=${SCORE}`,
 		() => {}
 	);
 }

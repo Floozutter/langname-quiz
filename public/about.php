@@ -27,22 +27,23 @@
 			</ul>
 		</div>
 	</nav>
-<div class="container align-items-center justify-content-center">
-	<div class="card mx-auto my-4">
-		<div class="card-header text-center display-4">
-			About
-		</div>
-		<div class="card-body lead">
-			<p>
-				Langalike is a quiz that tests your ability to distinguish real programming language names from names I just made up. In addition to the quiz, the website hosts a scoreboard and a reviews page.
-			</p>
-			<p>
-				
-				This website was made as a final project for USC's ITP 303 "Full-Stack Web Development" class, and you can check out Langalike's GitHub repository <a href="https://github.com/Floozutter/langname-quiz">here</a>!
-			</p>
-		</div>
-		<div class="card-footer text-muted">
-			uwu
+	<div class="container align-items-center justify-content-center">
+		<div class="card mx-auto my-4">
+			<div class="card-header text-center display-4">
+				About
+			</div>
+			<div class="card-body lead">
+				<p>
+					Langalike is a quiz that tests your ability to distinguish real programming language names from names I just made up. In addition to the quiz, the website hosts a scoreboard and a reviews page.
+				</p>
+				<p>
+					
+					This website was made as a final project for USC's ITP 303 "Full-Stack Web Development" class, and you can check out Langalike's GitHub repository <a href="https://github.com/Floozutter/langname-quiz">here</a>!
+				</p>
+			</div>
+			<div class="card-footer text-muted">
+				uwu
+			</div>
 		</div>
 	</div>
 </body>

@@ -33,27 +33,28 @@
 			</ul>
 		</div>
 	</nav>
-<div class="container align-items-center justify-content-center">
-	<div id="quiz" class="card mx-auto my-4">
-		<div class="card-header text-center display-4">
-			Langalike
-		</div>
-		<div class="card-body">
-			<div id="prompt" class="card-title mb-4 lead">
-				<p>
-					Hi! Welcome to Langalike, the quiz which tests your ability to distinguish real programming language names from fake ones.
-				</p>
-				<p>
-					Use the button below to start the quiz!
-				</p>
+	<div class="container align-items-center justify-content-center">
+		<div id="quiz" class="card mx-auto my-4">
+			<div class="card-header text-center display-4">
+				Langalike
 			</div>
-			<div id="choices" class="list-group"></div>
-			<div class="col-12 mt-4">
-				<button id="butty" type="button" disabled class="btn btn-primary">Continue</button>
+			<div class="card-body">
+				<div id="prompt" class="card-title mb-4 lead">
+					<p>
+						Hi! Welcome to Langalike, the quiz which tests your ability to distinguish real programming language names from fake ones.
+					</p>
+					<p>
+						Use the button below to start the quiz!
+					</p>
+				</div>
+				<div id="choices" class="list-group"></div>
+				<div class="col-12 mt-4">
+					<button id="butty" type="button" disabled class="btn btn-primary">Continue</button>
+				</div>
 			</div>
-		</div>
-		<div class="card-footer text-muted">
-			Progress: <span id="progress">0 of ?</span>&emsp;|&emsp;Score: <span id="score">0</span>
+			<div class="card-footer text-muted">
+				Progress: <span id="progress">0 of ?</span>&emsp;|&emsp;Score: <span id="score">0</span>
+			</div>
 		</div>
 	</div>
 </body>
