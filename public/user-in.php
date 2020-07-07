@@ -4,6 +4,8 @@
 	$cfg = parse_ini_file('../src/config.ini');
 	
 	function print_results() {
+		global $cfg;
+		
 		if (missing($_POST['name'])) {
 			echo '<span class="text-danger">Missing username!</span>';
 			return;
