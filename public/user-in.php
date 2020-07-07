@@ -4,6 +4,15 @@
 	$cfg = parse_ini_file('../src/config.ini');
 	
 	function print_results() {
+		if (missing($_POST['name'])) {
+			echo '<span class="text-danger">Missing username!</span>';
+			return;
+		}
+		if (missing($_POST['secret'])) {
+			echo '<span class="text-danger">Missing secret!</span>';
+			return;
+		}
+		
 		if (!$cfg['db_enabled'] || !class_exists('mysqli')) {
 			echo '<span class="text-danger">Database functionality not enabled!</span>';
 			return;
@@ -19,37 +28,26 @@
 			return;
 		}
 		
-		$query = (
-			' SELECT' . 
-			' 	user.name,' .
-			' 	score.value,' .
-			' 	score.time,' .
-			' 	score.comment' .
-			' FROM' .
-			' 	score' .
-			' 	LEFT JOIN user' .
-			' 		ON score.user_id = user.id' .
-			' ORDER BY score.time DESC'
-		);
+		$name = $_POST['name'];
+		$secret = $_POST['secret'];
+		$query = "SELECT id, name FROM user WHERE user.name = '$name' AND user.secret = '$secret';";
 		$results = $mysqli->query($query);
 		if (!$results) {
 			echo '<span class="text-danger">Query error!</span>';
 			return;
 		}
 		
-		echo '<table class="table table-hover table-responsive">';
-		echo '<thead><tr><th>User</th><th>Score</th><th>Time</th><th>Comment</th></tr></thead>';
-		echo '<tbody>';
-		while ($row = $results->fetch_assoc()) {
-			echo '<tr>';
-			echo '<td>' . $row['name'] . '</td>';
-			echo '<td>' . $row['value'] . '</td>';
-			echo '<td>' . $row['time'] . '</td>';
-			echo '<td>' . $row['comment'] . '</td>';
-			echo '</tr>';
+		if ($results->num_rows !== 1) {
+			echo '<span class="text-danger">User with secret not found!</span>';
+			return;
 		}
-		echo '<tbody>';
-		echo '</table>';
+		
+		$user = $mysqli_result->fetch_assoc();
+		
+		$_SESSION['user-id'] = $user['id'];
+		$_SESSION['user-name'] = $user['name'];
+		
+		echo '<div class="text-success">Successfully signed in!</div>';
 	}
 ?>
 <!DOCTYPE html>
@@ -57,9 +55,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Langalike - Scoreboard</title>
+	<title>Langalike - Sign In</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/board.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -74,21 +71,24 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="/">Quiz</span></a>
+					<a class="nav-link" href="/">Quiz</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="about.php">About</a>
 				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="scoreboard.php">Scoreboard<span class="sr-only">(current)</span></a>
-				</li>			
+				<li class="nav-item">
+					<a class="nav-link" href="scoreboard.php">Scoreboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="scoreboard.php">User</a>
+				</li>
 			</ul>
 		</div>
 	</nav>
 	<div class="container align-items-center justify-content-center">
-		<div id="board" class="card mx-auto my-4">
+		<div class="card mx-auto my-4">
 			<div class="card-header text-center display-4">
-				Scoreboard
+				Sign In
 			</div>
 			<div class="card-body lead">
 				<?php print_results(); ?>
