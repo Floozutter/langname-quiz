@@ -13,7 +13,6 @@ function enableButty() {
 		}
 		else {
 			updateSession();
-			endQuiz();
 		}
 	}, { once: true });
 }
@@ -93,7 +92,7 @@ function processAnswer(response) {
 function updateSession() {
 	ajax(
 		`get-session.php?score=${SCORE}`,
-		() => {}
+		endQuiz
 	);
 }
 
@@ -104,7 +103,7 @@ function endQuiz() {
 	document.querySelector("#choices").innerHTML = "";
 	const butty = document.querySelector("#butty");
 	butty.textContent = "Submit";
-	butty.addEventListener("click", _ => {
+	butty.addEventListener("click", () => {
 		location.href = "score.php";
 	});
 	butty.disabled = false;
