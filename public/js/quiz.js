@@ -33,16 +33,19 @@ function setQuestion(response) {
 	choicesDiv.innerHTML = "";
 	question.choices.forEach((c, i) => {
 		const cDiv = document.createElement("div");
-		cDiv.classList.add("choice");
+		cDiv.classList.add("choice", "list-group-item");
+		cDiv.classList.add();
 		cDiv.dataset.index = i;
 		cDiv.innerHTML = c.content;
 		choicesDiv.appendChild(cDiv);
 		cDiv.addEventListener("click", choiceListener, { once: true });
 	});
+	const progressSpan = document.querySelector("#progress");
+	progressSpan.textContent = `${CURR+1} of ${COUNT}`;
 }
 
 function choiceListener(e) {
-	e.target.classList.add("selected");
+	e.target.classList.add("selected", "list-group-item-primary");
 	document.querySelectorAll(".choice").forEach(cDiv => {
 		cDiv.removeEventListener("click", choiceListener);
 	});
@@ -56,21 +59,33 @@ function processAnswer(response) {
 	const question = JSON.parse(response);
 	document.querySelectorAll(".choice").forEach(cDiv => {
 		const index = parseInt(cDiv.dataset.index, 10);
+		const correct = question.choices[index].correct;
 		cDiv.classList.add(
-			question.choices[index].correct
-			? "correct"
-			: "incorrect"
+			correct
+			? cDiv.classList.add("correct")
+			: cDiv.classList.add("incorrect")
 		);
-		const explanation = document.createElement("p");
+		const badge = document.createElement("span");
+		badge.classList.add(
+			"badge",
+			correct ? "badge-success" : "badge-danger",
+			"badge-pill",
+			"float-right"
+		);
+		badge.textContent = correct ? '\u2713' : '\u2717';
+		cDiv.appendChild(badge);
+		const explanation = document.createElement("div");
+		explanation.classList.add("text-muted");
 		explanation.innerHTML = question.choices[index].explain;
 		cDiv.appendChild(explanation);
-		
 	});
 	const selected = document.querySelector(".choice.selected");
 	const selectedIndex = parseInt(selected.dataset.index, 10);
 	if (question.choices[selectedIndex].correct) {
 		SCORE += 1;
 	}
+	const scoreSpan = document.querySelector("#score");
+	scoreSpan.textContent = `${SCORE}`;
 	enableButty();
 }
 
