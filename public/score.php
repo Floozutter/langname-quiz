@@ -71,7 +71,7 @@
 				</form>
 			</div>
 			<div class="card-footer text-muted">
-				uwu <?php echo var_dump($_SESSION); ?>
+				uwu
 			</div>
 		</div>
 	</div>
