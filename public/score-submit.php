@@ -45,7 +45,7 @@
 			" 	$score," .
 			" 	$time," .
 			" 	$user_id," .
-			" 	$comment," .
+			" 	$comment" .
 			' );'
 		);
 		$results = $mysqli->query($query);
