@@ -3,13 +3,15 @@
 	require '../src/util.php';
 	$cfg = parse_ini_file('../src/config.ini');
 	
-	function attempt() {
+	function print_results() {
 		if (missing($_POST['score'])) {
-			return '<span class="text-danger">Missing score!</span>';
+			echo '<span class="text-danger">Missing score!</span>';
+			return;
 		}
 		
 		if (!$cfg['db_enabled'] || !class_exists('mysqli')) {
-			return '<span class="text-danger">Database functionality not enabled!</span>';
+			echo '<span class="text-danger">Database functionality not enabled!</span>';
+			return;
 		}
 		$mysqli = new mysqli(
 			$cfg['db_host'],
@@ -18,7 +20,8 @@
 			$cfg['db_name']
 		);
 		if ($mysqli->connect_errno) {
-			return '<span class="text-danger">Connect error!</span>';
+			echo '<span class="text-danger">Connect error!</span>';
+			return;
 		}
 		
 		$score = null_fallback($_POST['score']);
@@ -41,13 +44,13 @@
 		);
 		$results = $mysqli->query($query);
 		if (!$results) {
-			return '<span class="text-danger">Query error!</span>';
+			echo '<span class="text-danger">Query error!</span>';
+			return;
 		}
 		
-		return '<span class="text-success">Score successfully submitted!</span>';
+		echo '<span class="text-success">Score successfully submitted!</span>';
+		return;
 	}
-	
-	$msg = attempt();
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,6 +78,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="about.php">About</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="scoreboard.php">Scoreboard</a>
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -84,7 +90,8 @@
 				Score Submission
 			</div>
 			<div class="card-body lead">
-				<?=$msg?>
+				<?php print_results(); ?>
+				
 			</div>
 			<div class="card-footer text-muted">
 				uwu

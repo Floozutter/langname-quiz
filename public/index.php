@@ -30,6 +30,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="about.php">About</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="scoreboard.php">Scoreboard</a>
+				</li>
 			</ul>
 		</div>
 	</nav>

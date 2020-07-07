@@ -1,30 +1,65 @@
 <?php
 	session_start();
+	require '../src/util.php';
+	$cfg = parse_ini_file('../src/config.ini');
 	
-	if (empty($_SESSION['latest-score'])) {
-		$err = true;
-		$errmsg = 'No score found!';
-	} else if ($_SESSION['latest-logged']) {
-		$err = true;
-		$errmsg = 'Score already submitted!';
-	} else {
-		$err = false;
-		$errmsg = '';
+	function print_results() {
+		if (!$cfg['db_enabled'] || !class_exists('mysqli')) {
+			echo '<span class="text-danger">Database functionality not enabled!</span>';
+			return;
+		}
+		$mysqli = new mysqli(
+			$cfg['db_host'],
+			$cfg['db_user'],
+			$cfg['db_pass'],
+			$cfg['db_name']
+		);
+		if ($mysqli->connect_errno) {
+			echo '<span class="text-danger">Connect error!</span>';
+			return;
+		}
+		
+		$query = (
+			' SELECT' . 
+			' 	user.name,' .
+			' 	score.value,' .
+			' 	score.time,' .
+			' 	score.comment' .
+			' FROM' .
+			' 	score' .
+			' 	LEFT JOIN user' .
+			' 		ON score.user_id = user.id' .
+			' ORDER BY score.time DESC'
+		);
+		$results = $mysqli->query($query);
+		if (!$results) {
+			echo '<span class="text-danger">Query error!</span>';
+			return;
+		}
+		
+		echo '<table class="table table-hover table-responsive">';
+		echo '<thead><tr><th>User</th><th>Score</th><th>Time</th><th>Comment</th></tr></thead>';
+		echo '<tbody>';
+		while ($row = $mysqli_result->fetch_assoc()) {
+			echo '<tr>';
+			echo '<td>' . $row['name'] . '</td>';
+			echo '<td>' . $row['value'] . '</td>';
+			echo '<td>' . $row['time'] . '</td>';
+			echo '<td>' . $row['comment'] . '</td>';
+			echo '</tr>';
+		}
+		echo '<tbody>';
+		echo '</table>';
 	}
-	
-	$name = (
-		isset($_SESSION['user-id'])
-		? $_SESSION['user-name']
-		: 'Anonymous'
-	);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Langalike - Submit Score?</title>
+	<title>Langalike - Scoreboard</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/board.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -39,43 +74,25 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="/">Quiz</a>
+					<a class="nav-link" href="/">Quiz</span></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="about.php">About</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="scoreboard.php">Scoreboard</a>
-				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="scoreboard.php">Scoreboard<span class="sr-only">(current)</span></a>
+				</li>			
 			</ul>
 		</div>
 	</nav>
 	<div class="container align-items-center justify-content-center">
-		<div class="card mx-auto my-4">
+		<div id="board" class="card mx-auto my-4">
 			<div class="card-header text-center display-4">
-				Submit Your Score?
+				Scoreboard
 			</div>
 			<div class="card-body lead">
-				<div id="error" class="mb-2 text-danger">
-					<?=$errmsg?>
-				</div>
-				<form action="score-submit.php" method="POST">
-					<input type="hidden" name="user_id" value="<?=$_SESSION['user-id']?>">
-					<input type="hidden" name="time" value="<?=$_SESSION['latest-time']?>">
-					<div class="form-group">
-						<label for="name-id">Name:</label>
-						<input type="text" id="name-id" class="form-control" value="<?=$name?>" readonly="readonly">
-					</div>
-					<div class="form-group">
-						<label for="score-id">Score:</label>
-						<input type="number" id="score-id" class="form-control" name="score" value="<?=$_SESSION['latest-score']?>" readonly="readonly">
-					</div>
-					<div class="form-group">
-						<label for="text-id">Comment:</label>
-						<input type="text" id="text-id" class="form-control" name="comment" placeholder="very cool">
-					</div>
-					<button type="submit" class="btn btn-primary" <?php if($err){echo 'disabled';}?>>Submit</button>
-				</form>
+				<?php print_results(); ?>
+				
 			</div>
 			<div class="card-footer text-muted">
 				uwu
