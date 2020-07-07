@@ -23,7 +23,7 @@ USE `langalike_db` ;
 DROP TABLE IF EXISTS `langalike_db`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `langalike_db`.`user` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NULL,
   `secret` VARCHAR(255) NULL,
   PRIMARY KEY (`id`))
@@ -36,7 +36,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `langalike_db`.`score` ;
 
 CREATE TABLE IF NOT EXISTS `langalike_db`.`score` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `value` INT NULL,
   `time` INT NULL,
   `user_id` INT NULL,
@@ -57,7 +57,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `langalike_db`.`review` ;
 
 CREATE TABLE IF NOT EXISTS `langalike_db`.`review` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `content` VARCHAR(255) NULL,
   `user_id` INT NULL,
   PRIMARY KEY (`id`),
