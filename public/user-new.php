@@ -1,14 +1,62 @@
 <?php
 	session_start();
+	require '../src/util.php';
+	$cfg = parse_ini_file('../src/config.ini');
 	
-	$anon = !isset($_SESSION['user-id']);
+	function print_results() {
+		if (missing($_POST['newname'])) {
+			echo '<span class="text-danger">Missing username!</span>';
+			return;
+		}
+		
+		if (!$cfg['db_enabled'] || !class_exists('mysqli')) {
+			echo '<span class="text-danger">Database functionality not enabled!</span>';
+			return;
+		}
+		$mysqli = new mysqli(
+			$cfg['db_host'],
+			$cfg['db_user'],
+			$cfg['db_pass'],
+			$cfg['db_name']
+		);
+		if ($mysqli->connect_errno) {
+			echo '<span class="text-danger">Connect error!</span>';
+			return;
+		}
+		
+		$name = $_POST['newname'];
+		$query = "SELECT * FROM user WHERE user.name = '$name';";
+		$results = $mysqli->query($query);
+		if (!$results) {
+			echo '<span class="text-danger">Query error!</span>';
+			return;
+		}
+		
+		if ($results->num_rows !== 0) {
+			echo '<span class="text-danger">Username already taken!</span>';
+			return;
+		}
+		
+		$secret = md5(rand());
+		
+		$query2 = "INSERT INTO user (name, secret) VALUES ('$name', '$secret');";
+		$results2 = $mysqli->query($query2);
+		if (!$results2) {
+			echo '<span class="text-danger">Query error!</span>';
+			return;
+		}
+		
+		echo '<div class="text-success">User successfully created!</div>';
+		echo "<div>Your Username: $name</div>";
+		echo "<div>Your Secret: $secret</div>";
+	}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Langalike - User</title>
+	<title>Langalike - Create User</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -32,8 +80,8 @@
 				<li class="nav-item">
 					<a class="nav-link" href="scoreboard.php">Scoreboard</a>
 				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="scoreboard.php">User<span class="sr-only">(current)</span></a>
+				<li class="nav-item">
+					<a class="nav-link" href="scoreboard.php">User</a>
 				</li>
 			</ul>
 		</div>
@@ -41,37 +89,11 @@
 	<div class="container align-items-center justify-content-center">
 		<div class="card mx-auto my-4">
 			<div class="card-header text-center display-4">
-				User
+				Create User
 			</div>
 			<div class="card-body lead">
-				<?php if ($anon) { ?>
-					<h4 class="card-title">Create Account:</h4>
-					<form action="user-new.php" method="POST">
-						<div class="form-group">
-							<label for="newname-id">Username: </label>
-							<input type="text" id="newname-id" name="newname" class="form-control">
-						</div>
-						<button type="submit" class="btn btn-primary">Create</button>
-					</form>
-					<hr>
-					<h4 class="card-title">Sign In:</h4>
-					<form action="user-in.php" method="POST">
-						<div class="form-group">
-							<label for="name-id">Username: </label>
-							<input type="text" id="name-id" name="name" class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="secret-id">Secret: </label>
-							<input type="text" id="secret-id" name="secret" class="form-control">
-						</div>
-						<button type="submit" class="btn btn-primary">Sign In</button>
-					</form>
-				<?php } else { ?>
-					<h4 class="card-title">You're signed in as <?=$_SESSION['user-name']?>.</h4>
-					<form action="user-out.php">
-						<button type="submit" class="btn btn-primary">Sign Out</button>
-					</form>
-				<?php } ?>
+				<?php print_results(); ?>
+				
 			</div>
 			<div class="card-footer text-muted">
 				uwu
@@ -79,4 +101,3 @@
 		</div>
 	</div>
 </body>
-
