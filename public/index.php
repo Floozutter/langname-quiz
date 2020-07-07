@@ -51,7 +51,7 @@
 					</p>
 				</div>
 				<div id="choices" class="list-group"></div>
-				<div class="col-12 mt-4">
+				<div>
 					<button id="butty" type="button" disabled class="btn btn-primary">Continue</button>
 				</div>
 			</div>
