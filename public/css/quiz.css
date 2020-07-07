@@ -1,3 +1,9 @@
-#quiz.card {
-	max-width: 800px;
+#quiz .lead {
+	font-size: 22px;
+	font-weight: 350;
+	text-indent: 0px;
+}
+
+#quiz .choice {
+	font-size: 20px;
 }

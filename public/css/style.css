@@ -1,0 +1,8 @@
+#override .card {
+	max-width: 800px;
+}
+#override .lead {
+	font-size: 20px;
+	font-weight: 400;
+	text-indent: 1em;
+}

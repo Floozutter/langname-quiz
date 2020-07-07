@@ -97,7 +97,9 @@ function updateSession() {
 }
 
 function endQuiz() {
-	document.querySelector("#prompt").innerHTML = "You're done!"
+	document.querySelector("#prompt").innerHTML = (
+		"Great job, you're done! Submit your score using the button below."
+	)
 	document.querySelector("#choices").innerHTML = "";
 	const butty = document.querySelector("#butty");
 	butty.textContent = "Submit";
