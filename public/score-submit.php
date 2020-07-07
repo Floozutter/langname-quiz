@@ -49,7 +49,6 @@
 		}
 		
 		echo '<span class="text-success">Score successfully submitted!</span>';
-		return;
 	}
 ?>
 <!DOCTYPE html>
