@@ -1,7 +1,44 @@
 {
-	"questions": [
-		"a",
-		"b",
-		"c"
+	"quiz": [
+		{
+			"prompt": "uwu",
+			"choices": [
+				{
+					"correct": true,
+					"content": "A",
+					"explain": "ahhh"
+				},
+				{
+					"correct": false,
+					"content": "B",
+					"explain": "blah"
+				},
+				{
+					"correct": true,
+					"content": "C",
+					"explain": "cooo"
+				}
+			]
+		},
+		{
+			"prompt": "owo",
+			"choices": [
+				{
+					"correct": false,
+					"content": "D",
+					"explain": "daym"
+				},
+				{
+					"correct": true,
+					"content": "E",
+					"explain": "ehhe"
+				},
+				{
+					"correct": false,
+					"content": "F",
+					"explain": "fuck"
+				}
+			]
+		}
 	]
 }
