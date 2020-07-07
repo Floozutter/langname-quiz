@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	
-	if (empty($_SESSION['latest-score'])) {
+	if (empty($_SESSION['latest-score']) && ($_SESSION['latest-score'] !== 0)) {
 		$err = true;
 		$errmsg = 'No score found!';
 	} else if ($_SESSION['latest-logged']) {
