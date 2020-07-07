@@ -33,7 +33,7 @@
 		$score = null_fallback($_POST['score']);
 		$time = null_fallback($_POST['time']);
 		$user_id = null_fallback($_POST['user_id']);
-		$comment = null_fallback_quoted($_POST['time']);
+		$comment = null_fallback_quoted($_POST['comment']);
 		
 		$query = (
 			' INSERT INTO score (' .
