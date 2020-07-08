@@ -6,7 +6,7 @@
 	function print_results() {
 		global $cfg;
 		
-		if (missing($_POST['score']) && ($_POST['score'] !== 0)) {
+		if (missing($_POST['score']) && ($_POST['score'] !== '0')) {
 			echo '<span class="text-danger">Missing score!</span>';
 			return;
 		}
