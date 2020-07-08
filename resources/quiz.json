@@ -1,44 +1,270 @@
 {
 	"quiz": [
 		{
-			"prompt": "uwu",
+			"prompt": "Which of these is a popular interpreted general-purpose language that uses whitespace to delimit blocks?",
 			"choices": [
 				{
-					"correct": true,
-					"content": "A",
-					"explain": "ahhh"
+					"correct": false,
+					"content": "Gecko",
+					"explain": "A gecko is like a small lizard. They are very cute."
 				},
 				{
 					"correct": false,
-					"content": "B",
-					"explain": "blah"
+					"content": "Ekans",
+					"explain": "Ekans is a poison-type snake Pokemon."
 				},
 				{
 					"correct": true,
-					"content": "C",
-					"explain": "cooo"
+					"content": "Python",
+					"explain": "Python's a beginner friendly language with a gigantic community. If you want to learn how to code, Python's probably not a bad place to start."
+				},
+				{
+					"correct": false,
+					"content": "Spsp",
+					"explain": "This is the sound you make when you take two sips of water in quick succession."
 				}
 			]
 		},
 		{
-			"prompt": "owo",
+			"prompt": "Which of these one-letter programming languages names are real?",
 			"choices": [
 				{
-					"correct": false,
-					"content": "D",
-					"explain": "daym"
+					"correct": true,
+					"content": "B",
+					"explain": "B's a language back from 1969 developed by Ken Thompson and Dennis Ritchie. Its name probably comes from the language it was based on, BCPL."
 				},
 				{
 					"correct": true,
-					"content": "E",
-					"explain": "ehhe"
+					"content": "C",
+					"explain": "After Dennis Ritchie worked on B, he went on to develop C (a successor to B) in 1972. Good old C is the long-reigning king of systems programming. It's almost certain that the computer you're using right now is being propped up by code written in C."
+				},
+				{
+					"correct": true,
+					"content": "D",
+					"explain": "Released in 2001, D is much younger than B and C. It was designed to be a sort of better C++, but it's hard to fight the momentum of the status quo."
+				},
+				{
+					"correct": true,
+					"content": "J",
+					"explain": "J is in the niche of being an array programming language, being a descendant of APL."
+				},
+				{
+					"correct": true,
+					"content": "K",
+					"explain": "K is in the niche of being an array programming language, being a descendant of APL. It's proprietary though."
+				},
+				{
+					"correct": true,
+					"content": "R",
+					"explain": "R is a language designed for computational statistics. If you're a scientist, you might find some use in R."
+				},
+				{
+					"correct": true,
+					"content": "V",
+					"explain": "V is a bold newcomer to the language scene with an eager fanbase and some hilarious issues. There's some fun history on the internet down this rabbit hole."
+				}
+			]
+		},
+		{
+			"prompt": "Which of these is NOT a popular functional programming language?",
+			"choices": [
+				{
+					"correct": false,
+					"content": "Haskell",
+					"explain": "Haskell is a statically typed purely functional programming language with some very terse syntax. If you like math and rigor, you might like Haskell."
 				},
 				{
 					"correct": false,
-					"content": "F",
-					"explain": "fuck"
+					"content": "Elixir",
+					"explain": "Elixir is a dynamically typed function programming designed for robust concurrency."
+				},
+				{
+					"correct": false,
+					"content": "Lisp",
+					"explain": "Lisp is a language (or rather, a family of languages) with some truly unique syntax. If you think patterns and regularity are beautiful, try learning a Lisp."
+				},
+				{
+					"correct": true,
+					"content": "Sonic",
+					"explain": "Sonic is an anthropomorphic blue hedgehog who runs very fast."
+				}
+			]
+		},
+		{
+			"prompt": "Which of these acronyms and initalisms is NOT a programming language?",
+			"choices": [
+				{
+					"correct": true,
+					"content": "OOM",
+					"explain": "If your party's mage can't cast any more spells, they may be Out Of Mana."
+				},
+				{
+					"correct": false,
+					"content": "PHP",
+					"explain": "PHP is a recursive initialism for PHP: Hypertext Preprocessor. It's a popular server-side scripting language."
+				},
+				{
+					"correct": false,
+					"content": "ML",
+					"explain": "Meta Language was the first language that implemented the Hingley-Milner type system. Historical!"
+				},
+				{
+					"correct": true,
+					"content": "SQL",
+					"explain": "Structured Query Language is used for querying relational databases, and it isn't Turing complete. Because of that, let's count this as NOT a programming language!"
+				}
+			]
+		},
+		{
+			"prompt": "Which of these is the fake?",
+			"choices": [
+				{
+					"correct": false,
+					"content": "Java",
+					"explain": "Java is a popular object-oriented language used often in enterprise."
+				},
+				{
+					"correct": true,
+					"content": "Java++",
+					"explain": "Java++ doesn't exist. Java++ is a myth. Java++ can't hurt you."
+				},
+				{
+					"correct": false,
+					"content": "JavaScript",
+					"explain": "JavaScript is a scripting language for the web that runs in your browser. It's not related to Java."
+				}
+			]
+		},
+		{
+			"prompt": "Which of these is the fake? (Electric Boogaloo)",
+			"choices": [
+				{
+					"correct": false,
+					"content": "C",
+					"explain": "Hey, we've seen this one already!"
+				},
+				{
+					"correct": false,
+					"content": "C++",
+					"explain": "C++ is a general-purpose language that can go both low and high. (Low, meaning fiddling with memory, and high, meaning fiddling with abstractions.)"
+				},
+				{
+					"correct": false,
+					"content": "C#",
+					"explain": "C# is very different from C and C++. It's like Java for Windows."
+				},
+				{
+					"correct": true,
+					"content": "CScript",
+					"explain": "It would be very strange for an interpreted C-clone to exist."
+				}
+			]
+		},
+		{
+			"prompt": "Which of these is not a Pokemon?",
+			"choices": [
+				{
+					"correct": false,
+					"content": "Aron",
+					"explain": "Aron is a rock and steel-type quadruped. It looks like a big bug wearing armor. It is very cute."
+				},
+				{
+					"correct": true,
+					"content": "Fortran",
+					"explain": "Fortran is an old school imperative language used often for expensive scientific computations."
+				},
+				{
+					"correct": false,
+					"content": "Klang",
+					"explain": "They're gears. Gear Pokemon."
+				},
+				{
+					"correct": false,
+					"content": "Mankey",
+					"explain": "Monkey."
+				}
+			]
+		},
+		{
+			"prompt": "Which of these is a popular lightweight scripting language?",
+			"choices": [
+				{
+					"correct": true,
+					"content": "Lua",
+					"explain": "Because of its light footprint and flexibility, Lua is often used as an embedded scripting language in large applications."
+				},
+				{
+					"correct": false,
+					"content": "Luna",
+					"explain": "Luna is a Roman goddess of the Moon."
+				},
+				{
+					"correct": false,
+					"content": "Lunar",
+					"explain": "This is an adjective that basically means \"moon-related\"."
+				},
+				{
+					"correct": false,
+					"content": "Lunare",
+					"explain": "It's lunar, but Italian."
+				}
+			]
+		},
+		{
+			"prompt": "Which of these words are NOT programming languages?",
+			"choices": [
+				{
+					"correct": false,
+					"content": "Smalltalk",
+					"explain": "Smalltalk was a foundational language for the object-oriented programming paradigm. Its syntax can fit on a post card!"
+				},
+				{
+					"correct": false,
+					"content": "Ruby",
+					"explain": "Ruby is a general-purpose language about expressiveness and flexibility. It's also well known for the web framework Rails."
+				},
+				{
+					"correct": true,
+					"content": "Crate",
+					"explain": "A crate is like a big box."
+				},
+				{
+					"correct": false,
+					"content": "Rust",
+					"explain": "Rust is a systems language all about memory safety. It aims to let programmers use high-level abstractions without downsides in performance."
+				},
+				{
+					"correct": false,
+					"content": "Bash",
+					"explain": "Bash is a shell scripting language for Unix shells. If you're using a computer running on Linux, it might be useful to learn Bash."
+				}
+			]
+		},
+		{
+			"prompt": "Which of these is NOT an esoteric programming language?",
+			"choices": [
+				{
+					"correct": false,
+					"content": "Malbodge",
+					"explain": "Malbodge was designed to be as hard to use as possible. Will you take the challenge?"
+				},
+				{
+					"correct": false,
+					"content": "brainf**k",
+					"explain": "brainf**k is one of the more popular eso-langs due to its simple, minimal design."
+				},
+				{
+					"correct": true,
+					"content": "derdroim",
+					"explain": "This is just a weird sound I made up."
+				},
+				{
+					"correct": false,
+					"content": "Charcoal",
+					"explain": "Charcoal was made for creating ASCII art."
 				}
 			]
 		}
+
 	]
 }
