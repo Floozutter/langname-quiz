@@ -44,10 +44,10 @@
 		echo '<tbody>';
 		while ($row = $results->fetch_assoc()) {
 			echo '<tr>';
-			echo '<td>' . $row['name'] . '</td>';
-			echo '<td>' . $row['value'] . '</td>';
-			echo '<td>' . $row['time'] . '</td>';
-			echo '<td>' . $row['comment'] . '</td>';
+			echo '<td>' . (empty($row['name']) ? 'Anonymous' : $row['name']) . '</td>';
+			echo '<td>' . (string)$row['value'] . '</td>';
+			echo '<td>' . date('c', $row['time']) . '</td>';
+			echo '<td>' . (string)$row['comment'] . '</td>';
 			echo '</tr>';
 		}
 		echo '<tbody>';

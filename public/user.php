@@ -68,6 +68,7 @@
 					</form>
 				<?php } else { ?>
 					<h4 class="card-title">You're signed in as <?=$_SESSION['user-name']?>.</h4>
+					<br>
 					<form action="user-out.php">
 						<button type="submit" class="btn btn-primary">Sign Out</button>
 					</form>
