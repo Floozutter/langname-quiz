@@ -6,12 +6,8 @@
 	function print_results() {
 		global $cfg;
 		
-		if (missing($_POST['name'])) {
-			echo '<span class="text-danger">Missing username!</span>';
-			return;
-		}
-		if (missing($_POST['secret'])) {
-			echo '<span class="text-danger">Missing secret!</span>';
+		if (missing($_POST['content'])) {
+			echo '<span class="text-danger">Missing review!</span>';
 			return;
 		}
 		
@@ -30,26 +26,26 @@
 			return;
 		}
 		
-		$name = $_POST['name'];
-		$secret = $_POST['secret'];
-		$query = "SELECT id, name FROM user WHERE user.name = '$name' AND user.secret = '$secret';";
+		$content = null_fallback_quoted($_POST['content']);
+		$user_id = null_fallback($_POST['user_id']);
+		
+		$query = (
+			' INSERT INTO review (' .
+			' 	content,' .
+			' 	user_id' .
+			' ) VALUES (' .
+			" 	$content," .
+			" 	$user_id" .
+			' );'
+		);
 		$results = $mysqli->query($query);
 		if (!$results) {
 			echo '<span class="text-danger">Query error!</span>';
 			return;
 		}
 		
-		if ($results->num_rows !== 1) {
-			echo '<span class="text-danger">User with secret not found!</span>';
-			return;
-		}
-		
-		$user = $results->fetch_assoc();
-		
-		$_SESSION['user-id'] = $user['id'];
-		$_SESSION['user-name'] = $user['name'];
-		
-		echo '<div class="text-success">Successfully signed in!</div>';
+		$_SESSION['latest-logged'] = true;
+		echo '<span class="text-success">Review successfully submitted!</span>';
 	}
 ?>
 <!DOCTYPE html>
@@ -57,8 +53,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Langalike - Sign In</title>
+	<title>Langalike - Review Submission</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/board.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -73,7 +70,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="index.php">Quiz</a>
+					<a class="nav-link" href="index.php">Quiz</span></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="about.php">About</a>
@@ -86,14 +83,14 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="user.php">User</a>
-				</li>
+				</li>				
 			</ul>
 		</div>
 	</nav>
 	<div class="container align-items-center justify-content-center">
 		<div class="card mx-auto my-4">
 			<div class="card-header text-center display-4">
-				Sign In
+				Review Submission
 			</div>
 			<div class="card-body lead">
 				<?php print_results(); ?>

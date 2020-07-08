@@ -48,6 +48,9 @@
 					<a class="nav-link" href="scoreboard.php">Scoreboard</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" href="reviews.php">Reviews</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href="user.php">User</a>
 				</li>
 			</ul>

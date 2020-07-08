@@ -6,15 +6,6 @@
 	function print_results() {
 		global $cfg;
 		
-		if (missing($_POST['name'])) {
-			echo '<span class="text-danger">Missing username!</span>';
-			return;
-		}
-		if (missing($_POST['secret'])) {
-			echo '<span class="text-danger">Missing secret!</span>';
-			return;
-		}
-		
 		if (!$cfg['db_enabled'] || !class_exists('mysqli')) {
 			echo '<span class="text-danger">Database functionality not enabled!</span>';
 			return;
@@ -30,26 +21,32 @@
 			return;
 		}
 		
-		$name = $_POST['name'];
-		$secret = $_POST['secret'];
-		$query = "SELECT id, name FROM user WHERE user.name = '$name' AND user.secret = '$secret';";
+		$query = (
+			' SELECT' . 
+			' 	review.content,' .
+			' 	user.name' .
+			' FROM' .
+			' 	review' .
+			' 	LEFT JOIN user' .
+			' 		ON review.user_id = user.id' .
+			' ORDER BY review.id DESC;'
+		);
 		$results = $mysqli->query($query);
 		if (!$results) {
 			echo '<span class="text-danger">Query error!</span>';
 			return;
 		}
 		
-		if ($results->num_rows !== 1) {
-			echo '<span class="text-danger">User with secret not found!</span>';
-			return;
+		echo '<ul class="list-group list-group-flush">';
+		while ($row = $results->fetch_assoc()) {
+			echo '<li class="list-group-item">';
+			echo '<blockquote class="blockquote">';
+			echo '<p>' . $row['content'] . '</p>';
+			echo '<footer class="blockquote-footer">' . (empty($row['name']) ? '<span class="font-italic text-muted">Anonymous</span>' : $row['name']) . '</footer>';
+			echo '</blockquote>';
+			echo '</li>';
 		}
-		
-		$user = $results->fetch_assoc();
-		
-		$_SESSION['user-id'] = $user['id'];
-		$_SESSION['user-name'] = $user['name'];
-		
-		echo '<div class="text-success">Successfully signed in!</div>';
+		echo '</ul>';
 	}
 ?>
 <!DOCTYPE html>
@@ -57,8 +54,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Langalike - Sign In</title>
+	<title>Langalike - Reviews</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/board.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -73,7 +71,7 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="index.php">Quiz</a>
+					<a class="nav-link" href="index.php">Quiz</span></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="about.php">About</a>
@@ -81,19 +79,38 @@
 				<li class="nav-item">
 					<a class="nav-link" href="scoreboard.php">Scoreboard</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="reviews.php">Reviews</a>
+				<li class="nav-item active">
+					<a class="nav-link" href="reviews.php">Reviews<span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="user.php">User</a>
-				</li>
+				</li>				
 			</ul>
 		</div>
 	</nav>
 	<div class="container align-items-center justify-content-center">
 		<div class="card mx-auto my-4">
+			<div id="coller" class="card-header text-center display-4 text-primary collapsed" data-toggle="collapse" href="#colly" aria-expanded="false" aria-controls="colly">
+				Write a Review
+			</div>
+			<div id="colly" class="card-body lead collapse" role="tabpanel" aria-labelledby="coller" style="padding: 0;">
+				<div style="padding: 20px;">
+				<form action="reviews-submit.php" method="POST">
+					<input type="hidden" name="user_id" value="<?=$_SESSION['user-id']?>">
+					<div class="form-group">
+						<textarea id="content-id" name="content" class="form-control" rows="3" placeholder="cool very"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+				</div>
+			</div>
+			<div class="card-footer text-muted">
+				uwu
+			</div>
+		</div>
+		<div id="board" class="card mx-auto my-4">
 			<div class="card-header text-center display-4">
-				Sign In
+				Reviews
 			</div>
 			<div class="card-body lead">
 				<?php print_results(); ?>
