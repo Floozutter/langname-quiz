@@ -101,13 +101,14 @@
 			</div>
 			<div id="colly" class="card-body lead collapse" role="tabpanel" aria-labelledby="coller" style="padding: 0;">
 				<div style="padding: 20px;">
-				<form action="reviews-submit.php" method="POST">
-					<input type="hidden" name="user_id" value="<?=$_SESSION['user-id']?>">
-					<div class="form-group">
-						<textarea id="content-id" name="content" class="form-control" rows="3" placeholder="cool very"></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</form>
+					<p>Writing as "<?php echo (empty($_SESSION['user-name']) ? '<span class="font-italic text-muted">Anonymous</span>' : $_SESSION['user-name']); ?>":</p>
+					<form action="reviews-submit.php" method="POST">
+						<input type="hidden" name="user_id" value="<?=$_SESSION['user-id']?>">
+						<div class="form-group">
+							<textarea id="content-id" name="content" class="form-control" rows="3" placeholder="cool very"></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
 				</div>
 			</div>
 			<div class="card-footer text-muted">
