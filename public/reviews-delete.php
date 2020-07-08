@@ -6,6 +6,11 @@
 	function print_results() {
 		global $cfg;
 		
+		if (missing($_GET['id'])) {
+			echo '<span class="text-danger">Missing review id!</span>';
+			return;
+		}
+		
 		if (!$cfg['db_enabled'] || !class_exists('mysqli')) {
 			echo '<span class="text-danger">Database functionality not enabled!</span>';
 			return;
@@ -21,16 +26,11 @@
 			return;
 		}
 		
+		$id = $_GET['id'];
+		
 		$query = (
-			' SELECT' .
-			' 	review.id,' .
-			' 	review.content,' .
-			' 	user.name' .
-			' FROM' .
-			' 	review' .
-			' 	LEFT JOIN user' .
-			' 		ON review.user_id = user.id' .
-			' ORDER BY review.id DESC;'
+			' DELETE FROM review' .
+			" WHERE id = $id AND user_id IS NULL;"
 		);
 		$results = $mysqli->query($query);
 		if (!$results) {
@@ -38,21 +38,8 @@
 			return;
 		}
 		
-		echo '<ul class="list-group list-group-flush">';
-		while ($row = $results->fetch_assoc()) {
-			echo '<li class="list-group-item">';
-			echo '<blockquote class="blockquote">';
-			echo '<p>' . $row['content'] . '</p>';
-			echo '<footer class="blockquote-footer">' . (empty($row['name']) ? '<span class="font-italic text-muted">Anonymous</span>' : $row['name']) . '</footer>';
-			echo '</blockquote>';
-			if (empty($row['name'])) {
-				$id = $row['id'];
-				$href = "'reviews-delete.php?id={$id}'";
-				echo '<button type="button" onclick="location.href=' . $href . ';" class="btn btn-danger">Delete</button>';
-			}
-			echo '</li>';
-		}
-		echo '</ul>';
+		$_SESSION['latest-logged'] = true;
+		echo '<span class="text-success">Review successfully deleted!</span>';
 	}
 ?>
 <!DOCTYPE html>
@@ -60,7 +47,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Langalike - Reviews</title>
+	<title>Langalike - Review Deletion</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/board.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -85,8 +72,8 @@
 				<li class="nav-item">
 					<a class="nav-link" href="scoreboard.php">Scoreboard</a>
 				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="reviews.php">Reviews<span class="sr-only">(current)</span></a>
+				<li class="nav-item">
+					<a class="nav-link" href="reviews.php">Reviews</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="user.php">User</a>
@@ -96,27 +83,8 @@
 	</nav>
 	<div class="container align-items-center justify-content-center">
 		<div class="card mx-auto my-4">
-			<div id="coller" class="card-header text-center display-4 text-primary collapsed" data-toggle="collapse" href="#colly" aria-expanded="false" aria-controls="colly">
-				Write a Review
-			</div>
-			<div id="colly" class="card-body lead collapse" role="tabpanel" aria-labelledby="coller" style="padding: 0;">
-				<div style="padding: 20px;">
-				<form action="reviews-submit.php" method="POST">
-					<input type="hidden" name="user_id" value="<?=$_SESSION['user-id']?>">
-					<div class="form-group">
-						<textarea id="content-id" name="content" class="form-control" rows="3" placeholder="cool very"></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</form>
-				</div>
-			</div>
-			<div class="card-footer text-muted">
-				uwu
-			</div>
-		</div>
-		<div id="board" class="card mx-auto my-4">
 			<div class="card-header text-center display-4">
-				Reviews
+				Review Deletion
 			</div>
 			<div class="card-body lead">
 				<?php print_results(); ?>
