@@ -47,7 +47,7 @@
 				</p>
 				<p>
 					
-					This website was made as a final project for USC's ITP 303 "Full-Stack Web Development" class, and you can check out Langalike's GitHub repository <a href="https://github.com/Floozutter/langname-quiz">here</a>!
+					This website was made as a final project for USC's ITP 303 "Full-Stack Web Development" class, and you can check out its GitHub repository <a href="https://github.com/Floozutter/langname-quiz">here</a>!
 				</p>
 			</div>
 			<div class="card-footer text-muted">
