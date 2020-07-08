@@ -50,7 +50,8 @@
 		
 		echo '<div class="text-success">User successfully created!</div>';
 		echo "<div>Your Username: $name</div>";
-		echo "<div>Your Secret: $secret (Save this!)</div>";
+		echo "<div>Your Secret: $secret</div>";
+		echo '<div class="text-muted">Use the secret to sign in at the User page!</div>';
 	}
 ?>
 <!DOCTYPE html>
