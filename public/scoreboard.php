@@ -44,9 +44,9 @@
 		echo '<tbody>';
 		while ($row = $results->fetch_assoc()) {
 			echo '<tr>';
-			echo '<td>' . (empty($row['name']) ? 'Anonymous' : $row['name']) . '</td>';
+			echo '<td>' . (empty($row['name']) ? '<span class="font-italic text-muted">Anonymous</span>' : $row['name']) . '</td>';
 			echo '<td>' . (string)$row['value'] . '</td>';
-			echo '<td>' . date('c', $row['time']) . '</td>';
+			echo '<td>' . date('F j, Y, g:i a', $row['time']) . '</td>';
 			echo '<td>' . (string)$row['comment'] . '</td>';
 			echo '</tr>';
 		}
