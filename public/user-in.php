@@ -44,7 +44,7 @@
 			return;
 		}
 		
-		$user = $mysqli_result->fetch_assoc();
+		$user = $results->fetch_assoc();
 		
 		$_SESSION['user-id'] = $user['id'];
 		$_SESSION['user-name'] = $user['name'];
